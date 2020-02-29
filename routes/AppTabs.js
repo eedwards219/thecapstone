@@ -2,12 +2,13 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { AppParamList } from "./AppParamList";
 import { AntDesign, Ionicons, EvilIcons } from "@expo/vector-icons";
-import { HomeStack } from "./HomeStack";
+import HomeStack from "./HomeStack";
 // import { SearchStack } from "./SearchStack";
+import Home from "../screens/home";
 
 const Tabs = createBottomTabNavigator();
 
-export const AppTabs = ({}) => {
+const AppTabs = () => {
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -38,3 +39,4 @@ export const AppTabs = ({}) => {
     </Tabs.Navigator>
   );
 };
+export default AppTabs;
