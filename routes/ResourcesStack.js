@@ -20,10 +20,10 @@ const screens = {
       title: "Profile"
     }
   },
-  Profile: {
-    screen: Profile,
+  Resources: {
+    screen: Resources,
     navigationOptions: {
-      title: "Profile"
+      title: "Resources"
     }
   }
 };
@@ -36,4 +36,4 @@ const HomeStack = createStackNavigator(screens, {
   }
 });
 
-export default HomeStack;
+export default ResourcesStack;

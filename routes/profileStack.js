@@ -3,22 +3,27 @@ import React from "react";
 import Header from "../shared/header";
 import Home from "../screens/home";
 import ReviewDetails from "../screens/reviewDetails";
+import Profile from "../screens/profile";
 
 const screens = {
   Home: {
     screen: Home,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => (
-          <Header title="Uber for Voting" navigation={navigation} />
-        )
+        headerTitle: () => <Header title="VOOOOOOTE" navigation={navigation} />
       };
     }
   },
-  userProfile: {
-    screen: userProfile,
+  Profile: {
+    screen: Profile,
     navigationOptions: {
-      title: "User Profile"
+      title: "Profile"
+    }
+  },
+  Resources: {
+    screen: Resources,
+    navigationOptions: {
+      title: "Resources"
     }
   }
 };
@@ -31,4 +36,4 @@ const HomeStack = createStackNavigator(screens, {
   }
 });
 
-export default HomeStack;
+export default ProfileStack;

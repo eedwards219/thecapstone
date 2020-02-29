@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -7,79 +7,98 @@ import {
   FlatList,
   Modal,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Image
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { MaterialIcons } from "@expo/vector-icons";
-import Card from "../shared/card";
+// import Card from "../shared/card";
 import ReviewForm from "./reviewForm";
+import { fetchAllDrivers } from "../store/drivers/actions";
+import { fetchAllPassengers } from "../store/passengers/actions";
+import { fetchAllRides } from "../store/rides/actions";
+import { connect } from "react-redux";
+import { Card, ListItem, Button, Icon } from "react-native-elements";
+import DriverForm from "./driverForm";
+import PassengerForm from "./passengerForm";
+import FlatButton from "../shared/button.js";
 
-export default function Home({ navigation }) {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [reviews, setReviews] = useState([
-    {
-      title: "Zelda, Breath of Fresh Air",
-      rating: 5,
-      body: "lorem ipsum",
-      key: "1"
-    },
-    {
-      title: "Gotta Catch Them All (again)",
-      rating: 4,
-      body: "lorem ipsum",
-      key: "2"
-    },
-    {
-      title: 'Not So "Final" Fantasy',
-      rating: 3,
-      body: "lorem ipsum",
-      key: "3"
-    }
-  ]);
+function Home(props) {
+  useEffect(() => {
+    props.fetchAllRides();
+    props.fetchAllDrivers();
+    props.fetchAllPassengers();
+  }, []);
 
-  const addReview = review => {
-    review.key = Math.random().toString();
-    setReviews(currentReviews => {
-      return [review, ...currentReviews];
+  const [drivers, setDrivers] = useState(drivers);
+  const [passengers, setPassengers] = useState(passengers);
+  const [driverModalOpen, setDriverModalOpen] = useState(false);
+  const [passengerModalOpen, setPassengerModalOpen] = useState(false);
+
+  const addDriver = driver => {
+    driver.key = Math.random().toString();
+    setDrivers(currentDriver => {
+      return [driver, ...currentDriver];
     });
-    setModalOpen(false);
+    setDrivers(currentDriver);
   };
+  const addPassenger = passenger => {
+    passenger.key = Math.random().toString();
+    setPassengers(currentPassenger => {
+      return [passenger, ...currentPassenger];
+    });
+    setPassengers(currentPassenger);
+  };
+  // console.log("drivers", props.drivers);
 
   return (
     <View style={globalStyles.container}>
-      <Modal visible={modalOpen} animationType="slide">
+      <Modal visible={driverModalOpen} animationType="slide">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalContent}>
             <MaterialIcons
               name="close"
               size={24}
               style={{ ...styles.modalToggle, ...styles.modalClose }}
-              onPress={() => setModalOpen(false)}
+              onPress={() => setDriverModalOpen(false)}
             />
-            <ReviewForm addReview={addReview} />
+            <DriverForm addDriver={addDriver} />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-
-      <MaterialIcons
+      <Modal visible={passengerModalOpen} animationType="slide">
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalContent}>
+            <MaterialIcons
+              name="close"
+              size={24}
+              style={{ ...styles.modalToggle, ...styles.modalClose }}
+              onPress={() => setPassengerModalOpen(false)}
+            />
+            <PassengerForm addPassenger={addPassenger} />
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+      {/* <MaterialIcons
         name="add"
         size={24}
         style={styles.modalToggle}
         onPress={() => setModalOpen(true)}
-      />
+      /> */}
 
-      <FlatList
-        data={reviews}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ReviewDetails", item)}
-          >
-            <Card>
-              <Text style={globalStyles.titleText}>{item.title}</Text>
-            </Card>
-          </TouchableOpacity>
-        )}
-      />
+      {/* <Card title="CARD WITH DIVIDER" style={globalStyles.container}> */}
+      <View style={globalStyles.container}>
+        <FlatButton
+          text="I Want to be a Driver"
+          style={globalStyles.button}
+          onPress={() => setDriverModalOpen(true)}
+        ></FlatButton>
+        <FlatButton
+          text="I need a Ride"
+          style={globalStyles.button}
+          onPress={() => setPassengerModalOpen(true)}
+        ></FlatButton>
+      </View>
     </View>
   );
 }
@@ -103,3 +122,28 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+const mapStateToProps = state => {
+  return {
+    drivers: state.drivers.all.filter(driver => driver.id)
+  };
+};
+export default connect(mapStateToProps, {
+  fetchAllRides,
+  fetchAllDrivers,
+  fetchAllPassengers
+})(Home);
+
+{
+  /* <FlatList
+        data={reviews}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => props.navigation.push("ReviewDetails")}
+          >
+            <Card>
+              <Text style={globalStyles.titleText}>{item.title}</Text>
+            </Card>
+          </TouchableOpacity>
+        )}
+      /> */
+}

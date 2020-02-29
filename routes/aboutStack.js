@@ -9,7 +9,7 @@ const screens = {
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => (
-          <Header title="Uber for Voting" navigation={navigation} />
+          <Header title="About VOOOOOOTE" navigation={navigation} />
         )
       };
     }

@@ -18,4 +18,4 @@ export const REMOVE_DRIVERS_SUCCESS = "REMOVE_DRIVERS_SUCCESS";
 export const REMOVE_DRIVERS_FAILED = "REMOVE_DRIVERS_FAILED";
 export const REMOVE_DRIVERS_PENDING = "REMOVE_DRIVERS_PENDING";
 
-export const BASE_URL = `http://localhost:8001/drivers/`;
+export const BASE_URL = `http://localhost:8000/drivers/`;

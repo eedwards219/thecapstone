@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Button, TextInput, View, Text } from "react-native";
 import { globalStyles } from "../styles/global.js";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FlatButton from "../shared/button.js";
+import { addDriver } from "../store/drivers/actions";
 
 const driverSchema = yup.object({
   name: yup
@@ -21,16 +22,26 @@ const driverSchema = yup.object({
       return parseInt(val) < 6 && parseInt(val) > 0;
     })
 });
+// handleSubmit = e => {
+//   e.preventDefault();
+//   console.log("adddriver", this.state);
+//   addDriver({
+//     name: state.name,
+//     email: state.email,
+//     phoneNumber: state.phoneNumber,
+//     vehicle: state.vehicle
+//   });
+// };
 
-export default function driverProfile({ addDriver }) {
+export default function driverForm({ addDriver }) {
   return (
     <View style={globalStyles.container}>
       <Formik
         initialValues={{ name: "", phoneNumber: "", rating: "" }}
-        validationSchema={passengerSchema}
+        validationSchema={driverSchema}
         onSubmit={(values, actions) => {
           actions.resetForm();
-          addPassenger(values);
+          addDriver(values);
         }}
       >
         {props => (
@@ -46,10 +57,17 @@ export default function driverProfile({ addDriver }) {
             <Text style={globalStyles.errorText}>
               {props.touched.name && props.errors.name}
             </Text>
-
             <TextInput
               style={globalStyles.input}
-              minHeight={60}
+              minheight={60}
+              placeholder="Your Email Address"
+              onChangeText={props.handleChange("email")}
+              onBlur={props.handleBlur("email")}
+              value={props.values.email}
+            />
+            <TextInput
+              style={globalStyles.input}
+              minheight={60}
               placeholder="Your Phone Number"
               onChangeText={props.handleChange("phoneNumber")}
               onBlur={props.handleBlur("phoneNumber")}
@@ -71,10 +89,12 @@ export default function driverProfile({ addDriver }) {
               {props.touched.vehicle && props.errors.vehicle}
             </Text>
 
-            <FlatButton onPress={props.handleSubmit} text="submit" />
+            <FlatButton text="submit" />
           </View>
         )}
       </Formik>
     </View>
   );
 }
+
+// onSubmit={onSubmit}

@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
+  button: {
+    padding: 10,
+    marginBottom: 20
+  },
   titleText: {
     fontSize: 18,
     fontWeight: "bold",

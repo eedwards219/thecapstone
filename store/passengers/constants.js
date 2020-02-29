@@ -18,4 +18,4 @@ export const REMOVE_PASSENGERS_SUCCESS = "REMOVE_PASSENGERS_SUCCESS";
 export const REMOVE_PASSENGERS_FAILED = "REMOVE_PASSENGERS_FAILED";
 export const REMOVE_PASSENGERS_PENDING = "REMOVE_PASSENGERS_PENDING";
 
-export const BASE_URL = `http://localhost:8001/passengers/`;
+export const BASE_URL = `http://localhost:8000/passengers/`;
