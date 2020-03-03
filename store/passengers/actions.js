@@ -20,7 +20,7 @@ export const fetchAllPassengers = () => async dispatch => {
   }
 };
 
-export const fetchOneDriver = id => async dispatch => {
+export const fetchOnePassenger = id => async dispatch => {
   dispatch({
     type: types.FETCH_ONE_PASSENGERS_PENDING
   });

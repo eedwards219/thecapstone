@@ -89,7 +89,10 @@ export default function driverForm({ addDriver }) {
               {props.touched.vehicle && props.errors.vehicle}
             </Text>
 
-            <FlatButton text="submit" />
+            <FlatButton
+              text="submit"
+              onPress={() => navigation.navigate("DriverDashboard")}
+            />
           </View>
         )}
       </Formik>

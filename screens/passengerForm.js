@@ -76,6 +76,9 @@ function PassengerForm({ addPassenger }) {
               onBlur={props.handleBlur("email")}
               value={props.values.email}
             />
+            <Text style={globalStyles.errorText}>
+              {props.touched.email && props.errors.email}
+            </Text>
             <CheckBox
               style={globalStyles.input}
               center
@@ -83,9 +86,6 @@ function PassengerForm({ addPassenger }) {
               checked={checkboxChecked}
               onPress={() => setcheckboxChecked(true)}
             />
-            <Text style={globalStyles.errorText}>
-              {props.touched.rating && props.errors.rating}
-            </Text>
 
             <FlatButton text="submit" type="submit" />
           </View>
